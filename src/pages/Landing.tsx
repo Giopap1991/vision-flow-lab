@@ -106,13 +106,12 @@ export default function Landing() {
         <div className="absolute inset-0 gradient-hero opacity-10"></div>
         <div className="container mx-auto px-4 relative">
           <div className="text-center max-w-4xl mx-auto">
-            <Badge variant="secondary" className="mb-4 gradient-primary text-white">
+            <Badge className="mb-4 gradient-primary text-white border-0">
               🚀 AI-Powered Creative Intelligence
             </Badge>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
-              Transform Your 
-              <span className="gradient-text"> Creative Strategy</span> with AI
+              Transform Your <span className="gradient-text">Creative Strategy</span> with AI
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance max-w-3xl mx-auto">
@@ -121,13 +120,13 @@ export default function Landing() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button variant="hero" size="lg" asChild>
+              <Button className="gradient-primary text-white border-0 hover:opacity-90" size="lg" asChild>
                 <Link to="/auth">
                   Start Free Trial
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="glass" size="lg">
+              <Button variant="outline" className="bg-transparent border-muted-foreground text-muted-foreground hover:bg-muted" size="lg">
                 Watch Demo
               </Button>
             </div>
