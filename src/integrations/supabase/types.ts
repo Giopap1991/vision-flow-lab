@@ -14,7 +14,211 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      competitor_ads: {
+        Row: {
+          ad_copy: string | null
+          ad_url: string
+          competitor_id: string
+          detected_at: string | null
+          id: string
+        }
+        Insert: {
+          ad_copy?: string | null
+          ad_url: string
+          competitor_id: string
+          detected_at?: string | null
+          id?: string
+        }
+        Update: {
+          ad_copy?: string | null
+          ad_url?: string
+          competitor_id?: string
+          detected_at?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitor_ads_competitor_id_fkey"
+            columns: ["competitor_id"]
+            isOneToOne: false
+            referencedRelation: "competitors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitors: {
+        Row: {
+          created_at: string | null
+          facebook_page_id: string | null
+          id: string
+          name: string
+          user_id: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          facebook_page_id?: string | null
+          id?: string
+          name: string
+          user_id: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          facebook_page_id?: string | null
+          id?: string
+          name?: string
+          user_id?: string
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      creatives: {
+        Row: {
+          created_at: string | null
+          id: string
+          original_url: string
+          project_id: string
+          status: Database["public"]["Enums"]["creative_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          original_url: string
+          project_id: string
+          status?: Database["public"]["Enums"]["creative_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          original_url?: string
+          project_id?: string
+          status?: Database["public"]["Enums"]["creative_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "creatives_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          credits_remaining: number | null
+          email: string
+          id: string
+          subscription_tier:
+            | Database["public"]["Enums"]["subscription_tier"]
+            | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          credits_remaining?: number | null
+          email: string
+          id: string
+          subscription_tier?:
+            | Database["public"]["Enums"]["subscription_tier"]
+            | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          credits_remaining?: number | null
+          email?: string
+          id?: string
+          subscription_tier?:
+            | Database["public"]["Enums"]["subscription_tier"]
+            | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      variations: {
+        Row: {
+          created_at: string | null
+          creative_id: string
+          id: string
+          predicted_ctr: number | null
+          predicted_cvr: number | null
+          variation_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          creative_id: string
+          id?: string
+          predicted_ctr?: number | null
+          predicted_cvr?: number | null
+          variation_url: string
+        }
+        Update: {
+          created_at?: string | null
+          creative_id?: string
+          id?: string
+          predicted_ctr?: number | null
+          predicted_cvr?: number | null
+          variation_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "variations_creative_id_fkey"
+            columns: ["creative_id"]
+            isOneToOne: false
+            referencedRelation: "creatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +227,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      creative_status: "pending" | "processing" | "completed" | "failed"
+      subscription_tier: "free" | "pro" | "enterprise"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +355,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      creative_status: ["pending", "processing", "completed", "failed"],
+      subscription_tier: ["free", "pro", "enterprise"],
+    },
   },
 } as const
